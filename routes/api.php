@@ -8,3 +8,5 @@ Route::get('/tickets', [\App\Http\Controllers\Api\V1\TicketController::class, 'i
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
+
+Route::post('/login', [\App\Http\Controllers\Api\AuthController::class, 'login']);
