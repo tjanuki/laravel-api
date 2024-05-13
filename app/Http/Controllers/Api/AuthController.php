@@ -12,7 +12,8 @@ class AuthController extends Controller
 {
     use ApiResponses;
 
-    public function login(LoginUserRequest $request){
+    public function login(LoginUserRequest $request)
+    {
         $validated = $request->validated();
 
         if (!Auth::attempt($validated)) {
@@ -21,8 +22,17 @@ class AuthController extends Controller
 
         $user = Auth::user();
 
-        return $this->ok('Login successful',[
-            'token' => $user->createToken('API token for '. $user->email)->plainTextToken
-        ] );
+        return $this->ok('Login successful', [
+            'token' => $user->createToken('API token for '.$user->email, ['*'],
+                now()->addMonth()
+            )->plainTextToken
+        ]);
+    }
+
+    public function logout(Request $request)
+    {
+        $request->user()->currentAccessToken()->delete();
+
+        return $this->ok('Logout successful');
     }
 }

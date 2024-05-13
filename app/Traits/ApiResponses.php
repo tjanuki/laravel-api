@@ -6,7 +6,7 @@ use Illuminate\Http\JsonResponse;
 
 trait ApiResponses
 {
-    protected function ok($message, $data): JsonResponse
+    protected function ok($message, $data = []): JsonResponse
     {
         return $this->success($message, $data);
     }
