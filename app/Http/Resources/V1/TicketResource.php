@@ -20,7 +20,7 @@ class TicketResource extends JsonResource
             'attributes' => [
                 'title' => $this->title,
                 'description' => $this->when(
-                    $request->routeIs('api.v1.tickets.show'),
+                    $request->routeIs('tickets.show'),
                     $this->description
                 ),
                 'status' => $this->status,
@@ -38,7 +38,7 @@ class TicketResource extends JsonResource
                     ]
                 ]
             ],
-            'includes' => new UserResource($this->whenLoaded('user')),
+            'includes' => new UserResource($this->whenLoaded('author')),
             'links' => [
                 [
                     'rel' => 'self',
